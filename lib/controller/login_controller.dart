@@ -6,7 +6,7 @@ import 'package:hittok_assignment/controller/login_service.dart';
 import 'package:hittok_assignment/view/home_screen/home_screen.dart';
 
 class LoginController with ChangeNotifier {
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool passwordHidden = true;
   bool loading = false;
@@ -42,15 +42,17 @@ class LoginController with ChangeNotifier {
     loading = true;
     notifyListeners();
     await LoginService()
-        .login(nameController.text, passwordController.text)
+        .login(emailController.text, passwordController.text)
         .then((value) {
+      log(value.toString());
+
       if (value != null) {
-        print("aa");
+        print("hgvd");
         storage.write(key: 'Token', value: value);
         log(value.toString());
 
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => const HomeScreen(),
         ));
         loading = false;
         notifyListeners();

@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                         autoFocus: false,
                         obscureText: false,
                         iconData: Icons.mail_outline,
-                        controller: loginController.nameController,
+                        controller: loginController.emailController,
                         validator: (value) =>
                             loginController.nameValidation(value),
                       ),
@@ -178,7 +178,8 @@ class LoginPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Image(
-                                image: AssetImage("assets/images/images (1).png"),
+                                image:
+                                    AssetImage("assets/images/images (1).png"),
                                 height: 20.0,
                                 // width: 24,
                               ),
