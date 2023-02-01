@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hittok_assignment/constants/colors/app_colors.dart';
 import 'package:hittok_assignment/constants/helper/loading_widget.dart';
@@ -123,7 +125,8 @@ class LoginPage extends StatelessWidget {
                               ? const LoadingWidget()
                               : ElevatedButton(
                                   onPressed: () {
-                                    value.login(context);
+                                    value.getData(context);
+                                    log("message Home");
                                   },
                                   child: const Text("Login"));
                         },

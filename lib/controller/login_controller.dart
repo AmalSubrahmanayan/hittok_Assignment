@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hittok_assignment/controller/login_service.dart';
+import 'package:hittok_assignment/model/onboard_screen_model.dart';
 import 'package:hittok_assignment/view/home_screen/home_screen.dart';
 
 class LoginController with ChangeNotifier {
@@ -38,29 +39,44 @@ class LoginController with ChangeNotifier {
     notifyListeners();
   }
 
-  void login(BuildContext context) async {
-    loading = true;
-    notifyListeners();
-    await LoginService()
-        .login(emailController.text, passwordController.text)
-        .then((value) {
-      log(value.toString());
-
-      if (value != null) {
-        print("hgvd");
-        storage.write(key: 'Token', value: value);
-        log(value.toString());
-
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ));
-        loading = false;
-        notifyListeners();
-      } else {
-        log('value null');
-        loading = false;
-        notifyListeners();
-      }
-    });
+  getData(BuildContext context) async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    UserDataResponce? data = await LoginService().login(email, password);
+    if (data!.message == "Login Successfull") {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ));
+    } else {
+      log("message NOt Match");
+    }
   }
+
+  // Future<void> login(BuildContext context) async {
+  //   loading = true;
+  //   notifyListeners();
+
+  //   await LoginService()
+  //       .login(emailController.text, passwordController.text)
+  //       .then((value) {
+  //     log(value.toString());
+
+  //     if (value != null) {
+  //       print("hgvd");
+  //       storage.write(key: 'email', value: emailController.text);
+  //       storage.write(key: 'pass', value: passwordController.text);
+  //       log(value.toString());
+
+  //       Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (context) => const HomeScreen(),
+  //       ));
+  //       loading = false;
+  //       notifyListeners();
+  //     } else {
+  //       log('value null');
+  //       loading = false;
+  //       notifyListeners();
+  //     }
+  //   });
+  // }
 }
